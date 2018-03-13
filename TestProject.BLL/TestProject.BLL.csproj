@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7C29245-9CF1-4996-8C37-4F9BF6716A9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestProject.BLL</RootNamespace>
+    <AssemblyName>TestProject.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapper\Profiles\BLLToModel\FakturaBLLToModelProfile.cs" />
+    <Compile Include="AutoMapper\Profiles\ModelToBLL\FakturaModelToBLLProfile.cs" />
+    <Compile Include="AutoMapper\Resolvers\StavkeBLLToModelResolver.cs" />
+    <Compile Include="AutoMapper\Resolvers\StavkeModelToBLLResolver.cs" />
+    <Compile Include="BusinessCommands\CommandProcessor.cs" />
+    <Compile Include="BusinessCommands\FakturaCommands\CreateFakturaCommand.cs" />
+    <Compile Include="BusinessCommands\FakturaCommands\CreateFakturaCommandHandler.cs" />
+    <Compile Include="BusinessCommands\ICommand.cs" />
+    <Compile Include="BusinessCommands\ICommandHandler.cs" />
+    <Compile Include="BusinessCommands\ICommandProcessor.cs" />
+    <Compile Include="BusinessModels\Faktura.cs" />
+    <Compile Include="BusinessModels\Korisnik.cs" />
+    <Compile Include="BusinessModels\Stavka.cs" />
+    <Compile Include="BusinessQueries\FakturaQueries\GetAllFaktureQuery.cs" />
+    <Compile Include="BusinessQueries\FakturaQueries\GetAllFaktureQueryHandler.cs" />
+    <Compile Include="BusinessQueries\IQuery.cs" />
+    <Compile Include="BusinessQueries\IQueryHandler.cs" />
+    <Compile Include="BusinessServices\FakturaService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestProject.DLL\TestProject.DLL.csproj">
+      <Project>{A8276913-C903-4675-B0AE-D8FAE8896CC1}</Project>
+      <Name>TestProject.DLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.Model\TestProject.Model.csproj">
+      <Project>{1c421de6-2b01-46f8-9282-9bfb419da9ec}</Project>
+      <Name>TestProject.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

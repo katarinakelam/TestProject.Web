@@ -1,0 +1,41 @@
+﻿@model TestProject.Web.ViewModels.Stavka
+
+@using (Html.BeginCollectionItem("Stavke"))
+{
+
+    <tr>
+        @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+        <td class="col-md-10">
+            @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+    <tr class="form-group">
+        @Html.LabelFor(model => model.Kolicina, htmlAttributes: new { @class = "control-label col-md-2" })
+        <td class="col-md-10">
+            @Html.EditorFor(model => model.Kolicina, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Kolicina, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+    <tr class="form-group">
+        @Html.LabelFor(model => model.Cijena, htmlAttributes: new { @class = "control-label col-md-2" })
+        <td class="col-md-10">
+            @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Cijena, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+    <tr class="form-group">
+        @Html.LabelFor(model => model.UkupnaCijenaSPDVom, htmlAttributes: new { @class = "control-label col-md-2" })
+        <td class="col-md-10">
+            @Html.EditorFor(model => model.UkupnaCijenaSPDVom, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UkupnaCijenaSPDVom, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+    <hr />
+
+}
+
+

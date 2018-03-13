@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TestProject.Web.ViewModels.Faktura>
+
+@{
+    ViewBag.Title = "Pregled faktura";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumIzdavanja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumDospijeca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cijena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PDV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CijenaSPDVom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StvarateljRacuna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Primatelj)
+        </th>
+    </tr>
+    <tr>&nbsp;</tr>
+    @foreach (var item in Model)
+    {
+        <tr><td><b>Faktura:</b></td></tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumIzdavanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumDospijeca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cijena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PDV) %
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CijenaSPDVom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StvarateljRacuna)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Primatelj)
+            </td>
+        </tr>
+        <tr><td><b>Stavke:</b></td></tr>
+        <tr>
+            <th><b>Opis</b></th>
+            <th><b>Količina</b></th>
+            <th><b>Cijena</b></th>
+            <th><b>Ukupna cijena s PDVom</b></th>
+        </tr>
+        <tr>
+            @foreach (var stavka in item.Stavke)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => stavka.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stavka.Kolicina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stavka.Cijena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => stavka.UkupnaCijenaSPDVom)
+                </td>
+            }
+        </tr>
+        <tr> &nbsp; </tr>
+    }
+</table>

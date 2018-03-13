@@ -1,0 +1,101 @@
+﻿@model TestProject.Web.ViewModels.Faktura
+
+@{
+    ViewBag.Title = "Unos faktura";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Faktura</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumIzdavanja, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumIzdavanja, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumIzdavanja, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumDospijeca, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumDospijeca, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumDospijeca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <table id="stavke">
+                <tbody>
+                    @if (Model.Stavke != null)
+                    {
+                        foreach (var stavka in Model.Stavke)
+                        {
+                            @Html.Partial("StavkaRow", stavka)
+                        }
+                    }
+                </tbody>
+            </table>
+            <button type="button" id="addStavka">Add Stavka</button>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cijena, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cijena, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.RadioButtonFor(model => model.PDV, "25", false)@Html.Label("RH porez: 25%")
+        @Html.RadioButtonFor(model => model.PDV, "17", false)@Html.Label("BiH porez: 17%")
+        <div>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CijenaSPDVom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CijenaSPDVom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CijenaSPDVom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StvarateljRacuna, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StvarateljRacuna, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StvarateljRacuna, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Primatelj, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Primatelj, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Primatelj, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    $("#addStavka").on("click", function () {
+        $.ajax({
+            url: '@Url.Action("AddStavka", "Home")'
+        }).success(function (partialView) {
+            $('#stavke> tbody:last-child').append(partialView);
+        });
+    });
+</script>
+}
+
