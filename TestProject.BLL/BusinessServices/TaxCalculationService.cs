@@ -12,7 +12,7 @@ namespace TestProject.BLL.BusinessServices
         public float CalculateTaxes (int cijena, string drzava, int pdv)
         {
             CalculationImplementation calc = new CalculationImplementation();
-            var returnVariable = calc.DoCalculations(cijena, drzava, pdv);
+            List<float> returnVariable = calc.DoCalculations(cijena, drzava, pdv);
             return returnVariable.First();
         }
     }

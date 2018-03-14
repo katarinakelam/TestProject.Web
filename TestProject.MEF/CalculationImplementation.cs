@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,22 +16,23 @@ namespace TestProject.MEF
         {
 
             //Loading the assembly
-            var asm = Assembly.LoadFrom("AllCalculations.dll");
+            var dllFile = new FileInfo(@"C:\Users\Katarina\Documents\Visual Studio 2015\Projects\TestProject.Web\TestProject.MEF\Extensions\TestProject.MEF.dll");
+            var asm = Assembly.LoadFrom(dllFile.FullName);
             //Create the catalog
             var catalog = new AssemblyCatalog(asm);
             //Create the composition container
-            var container = new CompositionContainer(catalog);
+            CompositionContainer container = new CompositionContainer(catalog);
 
             //Create an instance of CalculationSelection class
             CountryTaxInformation country = new CountryTaxInformation();
             country.Name = countryName;
             country.Tax = countryTax;
 
-            var myCalculations1 = new CalculationSelection(price, country);
+            CalculationSelection myCalculations = new CalculationSelection(price, country);
 
             //Perform all the tax calculations
             List<float> returnVariables = new List<float>();
-            returnVariables = PeformCalculations(container, myCalculations1);
+            returnVariables = PeformCalculations(container, myCalculations);
             return returnVariables;
         }
 
@@ -43,9 +45,9 @@ namespace TestProject.MEF
             foreach (var item in currentCalculation.AllCalculations)
             {
                 //retrieve the list of applicable countries from the metadata
-                var applicableCountries = item.Metadata.Countries;
+                string[] applicableCountries = item.Metadata.Countries;
                 //Check whether the current tax calculation is applicable in the selected country
-                var cmp = applicableCountries.Contains(currentCalculation.Country.Stringify());
+                bool cmp = applicableCountries.Contains(currentCalculation.Country.Stringify());
                 float returnVariable = 0;
                 if (cmp)
                 {

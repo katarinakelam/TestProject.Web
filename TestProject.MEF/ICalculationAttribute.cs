@@ -8,6 +8,6 @@ namespace TestProject.MEF
 {
     public interface ICalculationAttribute
     {
-        List<string> Countries { get; }
+        string[] Countries { get; }
     }
 }

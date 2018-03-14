@@ -10,15 +10,17 @@ namespace TestProject.MEF
     [MetadataAttribute]
     public class CalculationAttribute : Attribute, ICalculationAttribute
     {
+        public string[] Countries { get; set; }
 
         public CalculationAttribute(string[] countries)
         {
-            foreach(var country in countries)
+            int i = 0;
+            Countries = new string[countries.Count()];
+            foreach (var country in countries)
             {
-                Countries.Add(country);
+                Countries[i] = country;
+                i++;
             }
         }
-
-        public List<string> Countries { get; set; }
     }
 }
