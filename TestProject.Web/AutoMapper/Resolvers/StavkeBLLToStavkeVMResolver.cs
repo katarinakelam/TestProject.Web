@@ -20,7 +20,7 @@ namespace TestProject.Web.AutoMapper.Resolvers
                 stavka.Cijena = item.Cijena;
                 stavka.Kolicina = item.Kolicina;
                 stavka.Opis = item.Opis;
-                stavka.UkupnaCijenaSPDVom = item.UkupnaCijenaSPDVom;
+                stavka.UkupnaCijena = item.UkupnaCijena;
 
                 stavke.Add(stavka);
             }

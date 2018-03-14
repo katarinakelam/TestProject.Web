@@ -14,7 +14,7 @@ namespace TestProject.Web.ViewModels
 
         public float Cijena { get; set; }
 
-        [DisplayName("Ukupna cijena s PDVom")]
-        public float UkupnaCijenaSPDVom { get; set; }
+        [DisplayName("Ukupna cijena")]
+        public float UkupnaCijena { get; set; }
     }
 }

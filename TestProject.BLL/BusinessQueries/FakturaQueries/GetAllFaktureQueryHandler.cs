@@ -36,7 +36,7 @@ namespace TestProject.BLL.BusinessQueries.FakturaQueries
                        Opis = s.Opis,
                        Cijena = s.Cijena,
                        Kolicina = s.Kolicina,
-                       UkupnaCijenaSPDVom = s.UkupnaCijenaSPDVom
+                       UkupnaCijena = s.UkupnaCijena
                    }).ToList()
                }).ToList();
 

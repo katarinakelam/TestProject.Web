@@ -16,6 +16,6 @@ namespace TestProject.BLL.BusinessModels
 
         public float Cijena { get; set; }
 
-        public float UkupnaCijenaSPDVom { get; set; }
+        public float UkupnaCijena { get; set; }
     }
 }

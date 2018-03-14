@@ -34,29 +34,29 @@
                     {
                         foreach (var stavka in Model.Stavke)
                         {
-                            @Html.Partial("StavkaRow", stavka)
+                            <tr>
+                                @Html.Partial("StavkaRow", stavka)
+                            </tr>
                         }
                     }
                 </tbody>
             </table>
-            <button type="button" id="addStavka">Add Stavka</button>
+            <button type="button" id="addStavka">Dodaj stavku</button>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Cijena, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control", @id = "cijena" } })
                 @Html.ValidationMessageFor(model => model.Cijena, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.RadioButtonFor(model => model.PDV, "25", false)@Html.Label("RH porez: 25%")
-        @Html.RadioButtonFor(model => model.PDV, "17", false)@Html.Label("BiH porez: 17%")
-        <div>
+        @Html.RadioButtonFor(model => model.PDV, "HR|25", new { @class = "radiobutton" }) @Html.Label("RH porez: 25%")
+        @Html.RadioButtonFor(model => model.PDV, "BiH|17", new { @id = "radiobutton" }) @Html.Label("BiH porez: 17%")
 
-        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.CijenaSPDVom, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CijenaSPDVom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CijenaSPDVom, new { htmlAttributes = new { @class = "form-control", @id = "cijenaPDV" } })
                 @Html.ValidationMessageFor(model => model.CijenaSPDVom, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -87,15 +87,44 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-    $("#addStavka").on("click", function () {
-        $.ajax({
-            url: '@Url.Action("AddStavka", "Home")'
-        }).success(function (partialView) {
-            $('#stavke> tbody:last-child').append(partialView);
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $("#addStavka").on("click", function () {
+            $.ajax({
+                url: '@Url.Action("AddStavka", "Home")'
+            }).success(function (partialView) {
+                $('#stavke> tbody:last-child').append(partialView);
+            });
         });
-    });
-</script>
+
+        $(".radiobutton").on("click", function () {
+           var countryData =  $(this).val().split('|');
+            var data = {
+                Cijena: parseInt($("#cijena").val()),
+                Drzava: countryData[0],
+                PDV : countryData[1]
+            };
+
+            $.ajax({
+                url: '@Url.Action("CalculateTaxes", "Home")',
+                type: 'POST',
+                data: data,
+            }).done(function (result) {
+                $("#cijenaPDV").attr('value', result);
+            });
+        });
+
+        var total = [];
+        $(document).on("keyup", ".cijena", function () {
+            $(this).siblings(".ukupnaCijena").val($(this).siblings(".kolicina").val() * $(this).val());
+            total.push($(this).siblings(".ukupnaCijena").val());
+            $(this).siblings(".ukupnaCijena").removeClass("ukupnaCijena");
+            var zbroj = 0;
+            for (var i in total) {
+                zbroj += parseInt(total[i]);
+            }
+            $("#cijena").attr('value', zbroj);
+        });
+    </script>
 }
 

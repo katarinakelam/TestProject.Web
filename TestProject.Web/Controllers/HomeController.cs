@@ -50,6 +50,13 @@ namespace TestProject.Web.Controllers
         }
 
         [HttpPost]
+        public float CalculateTaxes(PDVCalculation data)
+        {
+            TaxCalculationService service = new TaxCalculationService();
+            return service.CalculateTaxes(data.Cijena, data.Drzava, data.PDV);
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateFaktura([Bind(Include = "DatumIzdavanja, DatumDospijeca, Stavke, Cijena, PDV, CijenaSPDVom, StvarateljRacuna, Primatelj")]Faktura faktura)
         {

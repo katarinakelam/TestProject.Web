@@ -67,6 +67,7 @@
     <Compile Include="BusinessQueries\IQuery.cs" />
     <Compile Include="BusinessQueries\IQueryHandler.cs" />
     <Compile Include="BusinessServices\FakturaService.cs" />
+    <Compile Include="BusinessServices\TaxCalculationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\TestProject.DLL\TestProject.DLL.csproj">
       <Project>{A8276913-C903-4675-B0AE-D8FAE8896CC1}</Project>
       <Name>TestProject.DLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.MEF\TestProject.MEF.csproj">
+      <Project>{383b1e54-7c57-4496-a892-d4b490dad058}</Project>
+      <Name>TestProject.MEF</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestProject.Model\TestProject.Model.csproj">
       <Project>{1c421de6-2b01-46f8-9282-9bfb419da9ec}</Project>

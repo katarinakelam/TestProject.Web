@@ -24,6 +24,6 @@ namespace TestProject.Model
         public float Cijena { get; set; }
 
         [Required]
-        public float UkupnaCijenaSPDVom { get; set; }
+        public float UkupnaCijena { get; set; }
     }
 }

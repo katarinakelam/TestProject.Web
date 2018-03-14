@@ -221,6 +221,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Faktura.cs" />
     <Compile Include="ViewModels\Korisnik.cs" />
+    <Compile Include="ViewModels\PDVCalculation.cs" />
     <Compile Include="ViewModels\Stavka.cs" />
   </ItemGroup>
   <ItemGroup>
