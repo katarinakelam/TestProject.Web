@@ -50,8 +50,8 @@
                 @Html.ValidationMessageFor(model => model.Cijena, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.RadioButtonFor(model => model.PDV, "HR|25", new { @class = "radiobutton" }) @Html.Label("RH porez: 25%")
-        @Html.RadioButtonFor(model => model.PDV, "BiH|17", new { @id = "radiobutton" }) @Html.Label("BiH porez: 17%")
+        @Html.RadioButtonFor(model => model.PDV, "HR|25", new { @class = "radiobutton", @name = "rate" }) @Html.Label("RH porez: 25%")
+        @Html.RadioButtonFor(model => model.PDV, "BiH|17", new { @class = "radiobutton", @name = "rate" }) @Html.Label("BiH porez: 17%")
 
         <div class="form-group">
             @Html.LabelFor(model => model.CijenaSPDVom, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StvarateljRacuna, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StvarateljRacuna, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StvarateljRacuna, new { htmlAttributes = new { @class = "form-control", @id = "korisnik" } })
                 @Html.ValidationMessageFor(model => model.StvarateljRacuna, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,11 +98,12 @@
         });
 
         $(".radiobutton").on("click", function () {
-           var countryData =  $(this).val().split('|');
+            $(this).addClass("rbSelected");
+            var countryData = $(this).val().split('|');
             var data = {
                 Cijena: parseInt($("#cijena").val()),
                 Drzava: countryData[0],
-                PDV : countryData[1]
+                PDV: countryData[1]
             };
 
             $.ajax({
@@ -117,6 +118,7 @@
         var total = [];
         $(document).on("keyup", ".cijena", function () {
             $(this).siblings(".ukupnaCijena").val($(this).siblings(".kolicina").val() * $(this).val());
+
             total.push($(this).siblings(".ukupnaCijena").val());
             $(this).siblings(".ukupnaCijena").removeClass("ukupnaCijena");
             var zbroj = 0;
@@ -124,7 +126,31 @@
                 zbroj += parseInt(total[i]);
             }
             $("#cijena").attr('value', zbroj);
+
+            if (document.querySelector(".rbSelected") != null) {
+                var countryData = document.querySelector(".rbSelected").value.split('|');
+                var data = {
+                    Cijena: parseInt($("#cijena").val()),
+                    Drzava: countryData[0],
+                    PDV: countryData[1]
+                };
+                $.ajax({
+                    url: '@Url.Action("CalculateTaxes", "Home")',
+                    type: 'POST',
+                    data: data,
+                }).done(function (result) {
+                    $("#cijenaPDV").attr('value', result);
+                });
+            }
         });
+
+        $(document).ready(
+             $.ajax({
+                 url: '@Url.Action("GetUser", "Home")',
+                 type: 'GET',
+             }).done(function (result) {
+                 $("#korisnik").attr('value', result);
+             }));
     </script>
 }
 

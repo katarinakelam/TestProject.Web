@@ -22,7 +22,7 @@ namespace TestProject.MEF
         public CountryTaxInformation Country { get; set; }
 
         //ImportMany of type ICalculation
-        [ImportMany(typeof(ICalculation))]
+        [ImportMany]
         public IEnumerable<Lazy<ICalculation, ICalculationAttribute>> AllCalculations;
 
     }

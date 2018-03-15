@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -54,6 +55,20 @@ namespace TestProject.Web.Controllers
         {
             TaxCalculationService service = new TaxCalculationService();
             return service.CalculateTaxes(data.Cijena, data.Drzava, data.PDV);
+        }
+
+        [HttpGet]
+        public string GetUser()
+        {
+            if (User.Identity.GetUserName() != null)
+            {
+                return User.Identity.GetUserName();
+            }
+            else
+            {
+                RedirectToAction("Index", "Home");
+                return " ";
+            }
         }
 
         [HttpPost]
