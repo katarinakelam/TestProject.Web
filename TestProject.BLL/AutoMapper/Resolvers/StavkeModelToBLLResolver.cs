@@ -15,9 +15,9 @@ namespace TestProject.BLL.AutoMapper.Resolvers
         public List<StavkaBLL> Resolve(Faktura source, FakturaBLL destination, List<StavkaBLL> destMember, ResolutionContext context)
         {
             List<StavkaBLL> stavke = new List<StavkaBLL>();
-            StavkaBLL stavka = new StavkaBLL();
             foreach (var item in source.Stavke)
             {
+                StavkaBLL stavka = new StavkaBLL();
                 stavka.Cijena = item.Cijena;
                 stavka.Kolicina = item.Kolicina;
                 stavka.Opis = item.Opis;

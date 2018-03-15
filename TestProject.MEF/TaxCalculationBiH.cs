@@ -13,7 +13,7 @@ namespace TestProject.MEF
     {
         public float Calculate(int cijena, int pdv)
         {
-            return cijena * (float)pdv / 10;
+            return cijena + cijena * (float)pdv / 100;
         }
     }
 }

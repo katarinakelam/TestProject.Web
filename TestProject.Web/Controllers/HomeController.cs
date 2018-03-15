@@ -25,24 +25,45 @@ namespace TestProject.Web.Controllers
         {
             Faktura faktura = new Faktura();
             faktura.Stavke = new List<Stavka>();
+            if (User.Identity.GetUserName() == "")
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            return View(faktura);
+            else
+            {
+                return View(faktura);
+            }
         }
 
         [HttpGet]
         public ActionResult ViewAllFakture()
         {
-            FakturaService service = new FakturaService();
-            var returnAnswer = service.GetAllFakture();
-
-            var config = new MapperConfiguration(cfg =>
+            if (User.Identity.GetUserName() == "")
             {
-                cfg.AddProfile<FakturaBLLToVMProfile>();
-            });
-            var mapper = new Mapper(config);
-            List<Faktura> fakture = mapper.DefaultContext.Mapper.Map<List<Faktura>>(returnAnswer);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                FakturaService service = new FakturaService();
+                 var returnAnswer = service.GetAllFakture();
 
-            return View(fakture);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile<FakturaBLLToVMProfile>();
+                });
+                var mapper = new Mapper(config);
+                List<Faktura> fakture = mapper.DefaultContext.Mapper.Map<List<Faktura>>(returnAnswer);
+
+                if (fakture == null)
+                {
+                    return RedirectToAction("CreateFaktura", "Home");
+                }
+                else
+                {
+                    return View(fakture);
+                }
+            }
         }
 
         public ActionResult AddStavka()
@@ -73,7 +94,7 @@ namespace TestProject.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateFaktura([Bind(Include = "DatumIzdavanja, DatumDospijeca, Stavke, Cijena, PDV, CijenaSPDVom, StvarateljRacuna, Primatelj")]Faktura faktura)
+        public ActionResult CreateFaktura(Faktura faktura)
         {
             try
             {

@@ -206,6 +206,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="AutoMapper\Profiles\BLLToVM\FakturaBLLToVMProfile.cs" />
     <Compile Include="AutoMapper\Profiles\VMToBLL\FakturaVMToFakturaBLLProfile.cs" />
+    <Compile Include="AutoMapper\Resolvers\CijenaSPDVomVMToBLLResolver.cs" />
     <Compile Include="AutoMapper\Resolvers\StavkeBLLToStavkeVMResolver.cs" />
     <Compile Include="AutoMapper\Resolvers\StavkeVMToStavkeBLLResolver.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -220,7 +221,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Faktura.cs" />
-    <Compile Include="ViewModels\Korisnik.cs" />
     <Compile Include="ViewModels\PDVCalculation.cs" />
     <Compile Include="ViewModels\Stavka.cs" />
   </ItemGroup>
@@ -300,6 +300,10 @@
     <ProjectReference Include="..\TestProject.BLL\TestProject.BLL.csproj">
       <Project>{E7C29245-9CF1-4996-8C37-4F9BF6716A9E}</Project>
       <Name>TestProject.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestProject.DLL\TestProject.DLL.csproj">
+      <Project>{a8276913-c903-4675-b0ae-d8fae8896cc1}</Project>
+      <Name>TestProject.DLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestProject.Model\TestProject.Model.csproj">
       <Project>{1c421de6-2b01-46f8-9282-9bfb419da9ec}</Project>

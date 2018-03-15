@@ -13,9 +13,10 @@ namespace TestProject.Web.AutoMapper.Resolvers
         public List<Stavka> Resolve(FakturaVM source, Faktura destination, List<Stavka> destMember, ResolutionContext context)
         {
             List<Stavka> stavke = new List<Stavka>();
-            Stavka stavka = new Stavka();
+
             foreach (var item in source.Stavke)
             {
+                Stavka stavka = new Stavka();
                 stavka.Cijena = item.Cijena;
                 stavka.Kolicina = item.Kolicina;
                 stavka.Opis = item.Opis;

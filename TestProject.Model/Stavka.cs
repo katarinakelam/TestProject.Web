@@ -14,7 +14,7 @@ namespace TestProject.Model
         public int StavkaID { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 0)]
         public string Opis { get; set; }
 
         [Required]

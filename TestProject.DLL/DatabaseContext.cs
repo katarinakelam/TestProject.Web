@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using TestProject.Model;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace TestProject.DLL
 {
@@ -12,6 +13,11 @@ namespace TestProject.DLL
     {
         public DbSet<Stavka> Stavke { get; set; }
         public DbSet<Faktura> Fakture { get; set; }
-        public DbSet<Korisnik> Korisnici { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            Database.SetInitializer<DatabaseContext>(null);
+        }
     }
 }

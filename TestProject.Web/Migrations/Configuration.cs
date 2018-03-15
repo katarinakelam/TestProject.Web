@@ -1,4 +1,4 @@
-namespace TestProject.DLL.Migrations
+namespace TestProject.Web.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -10,11 +10,12 @@ namespace TestProject.DLL.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(DatabaseContext context)
+        protected override void Seed(TestProject.DLL.DatabaseContext context)
         {
-
+          
         }
     }
 }

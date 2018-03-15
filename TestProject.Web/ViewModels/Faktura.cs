@@ -18,14 +18,14 @@ namespace TestProject.Web.ViewModels
         public DateTime DatumDospijeca { get; set; }
 
         [DisplayName("Stavke")]
-        public List<Stavka> Stavke { get; set; }
+        public IEnumerable<Stavka> Stavke { get; set; }
 
         public float Cijena { get; set; }
 
         public int PDV { get; set; }
 
         [DisplayName("Cijena s PDVom")]
-        public float CijenaSPDVom { get; set; }
+        public string CijenaSPDVom { get; set; }
 
         [DisplayName("Stvaratelj računa")]
         public string StvarateljRacuna { get; set; }

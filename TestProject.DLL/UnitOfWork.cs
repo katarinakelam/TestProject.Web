@@ -38,19 +38,6 @@ namespace TestProject.DLL
             }
         }
 
-        private GenericRepository<Korisnik> korisnikRepository;
-        public GenericRepository<Korisnik> KorisnikRepository
-        {
-            get
-            {
-                if (this.korisnikRepository == null)
-                {
-                    this.korisnikRepository = new GenericRepository<Korisnik>(context);
-                }
-                return korisnikRepository;
-            }
-        }
-
         public void Save()
         {
             context.SaveChanges();

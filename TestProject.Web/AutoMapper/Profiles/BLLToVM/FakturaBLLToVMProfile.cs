@@ -23,7 +23,7 @@ namespace TestProject.Web.AutoMapper.Profiles.BLLToVM
                 .ForMember(dest => dest.Cijena,
                     opt => opt.MapFrom(src => src.Cijena))
                 .ForMember(dest => dest.CijenaSPDVom,
-                    opt => opt.MapFrom(src => src.CijenaSPDVom))
+                    opt => opt.MapFrom(src => src.CijenaSPDVom.ToString()))
                 .ForMember(dest => dest.StvarateljRacuna,
                     opt => opt.MapFrom(src => src.StvarateljRacuna))
                 .ForMember(dest => dest.Primatelj,

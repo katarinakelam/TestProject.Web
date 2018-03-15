@@ -4,7 +4,7 @@
     ViewBag.Title = "Unos faktura";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateFaktura", "Home", FormMethod.Post, new { @id = "beginForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -46,18 +46,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cijena, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control", @id = "cijena" } })
+                @Html.EditorFor(model => model.Cijena, new { htmlAttributes = new { @class = "form-control", @id = "cijenaF" } })
                 @Html.ValidationMessageFor(model => model.Cijena, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.RadioButtonFor(model => model.PDV, "HR|25", new { @class = "radiobutton", @name = "rate" }) @Html.Label("RH porez: 25%")
-        @Html.RadioButtonFor(model => model.PDV, "BiH|17", new { @class = "radiobutton", @name = "rate" }) @Html.Label("BiH porez: 17%")
+        @Html.RadioButtonFor(model => model.PDV, "25", new { @class = "radiobutton", @id = "HR|25" })
+        @Html.ValidationMessageFor(model => model.PDV, "", new { @class = "text-danger" })
+         @Html.Label("RH porez: 25%")
+
+        @Html.RadioButtonFor(model => model.PDV, "17", new { @class = "radiobutton", @id = "BiH|17" })
+        @Html.ValidationMessageFor(model => model.PDV, "", new { @class = "text-danger" })
+        @Html.Label("BiH porez: 17%")
 
         <div class="form-group">
             @Html.LabelFor(model => model.CijenaSPDVom, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CijenaSPDVom, new { htmlAttributes = new { @class = "form-control", @id = "cijenaPDV" } })
-                @Html.ValidationMessageFor(model => model.CijenaSPDVom, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -79,7 +83,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" id="createButton" />
             </div>
         </div>
     </div>
@@ -99,9 +103,9 @@
 
         $(".radiobutton").on("click", function () {
             $(this).addClass("rbSelected");
-            var countryData = $(this).val().split('|');
+            var countryData = $(this).attr("id").split('|');
             var data = {
-                Cijena: parseInt($("#cijena").val()),
+                Cijena: parseInt($("#cijenaF").val()),
                 Drzava: countryData[0],
                 PDV: countryData[1]
             };
@@ -116,21 +120,22 @@
         });
 
         var total = [];
-        $(document).on("keyup", ".cijena", function () {
+        $(document).on("blur", ".cijena", function () {
             $(this).siblings(".ukupnaCijena").val($(this).siblings(".kolicina").val() * $(this).val());
 
             total.push($(this).siblings(".ukupnaCijena").val());
             $(this).siblings(".ukupnaCijena").removeClass("ukupnaCijena");
+            $(this).siblings(".kolicina").removeClass("kolicina");
             var zbroj = 0;
             for (var i in total) {
                 zbroj += parseInt(total[i]);
             }
-            $("#cijena").attr('value', zbroj);
+            $("#cijenaF").attr('value', zbroj);
 
             if (document.querySelector(".rbSelected") != null) {
-                var countryData = document.querySelector(".rbSelected").value.split('|');
+                var countryData = document.querySelector(".rbSelected").id.split('|');
                 var data = {
-                    Cijena: parseInt($("#cijena").val()),
+                    Cijena: parseInt($("#cijenaF").val()),
                     Drzava: countryData[0],
                     PDV: countryData[1]
                 };
@@ -139,7 +144,7 @@
                     type: 'POST',
                     data: data,
                 }).done(function (result) {
-                    $("#cijenaPDV").attr('value', result);
+                    $("#cijenaPDV").attr('value', result.toString());
                 });
             }
         });

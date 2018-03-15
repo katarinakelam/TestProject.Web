@@ -60,7 +60,6 @@
     <Compile Include="BusinessCommands\ICommandHandler.cs" />
     <Compile Include="BusinessCommands\ICommandProcessor.cs" />
     <Compile Include="BusinessModels\Faktura.cs" />
-    <Compile Include="BusinessModels\Korisnik.cs" />
     <Compile Include="BusinessModels\Stavka.cs" />
     <Compile Include="BusinessQueries\FakturaQueries\GetAllFaktureQuery.cs" />
     <Compile Include="BusinessQueries\FakturaQueries\GetAllFaktureQueryHandler.cs" />

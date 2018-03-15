@@ -37,7 +37,7 @@ namespace TestProject.BLL.BusinessQueries.FakturaQueries
                        Cijena = s.Cijena,
                        Kolicina = s.Kolicina,
                        UkupnaCijena = s.UkupnaCijena
-                   }).ToList()
+                   }).OrderBy(s => s.Opis).ToList()
                }).ToList();
 
             var config = new MapperConfiguration(cfg =>

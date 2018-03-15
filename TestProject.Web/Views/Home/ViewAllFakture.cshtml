@@ -6,33 +6,33 @@
 
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumIzdavanja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumDospijeca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cijena)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PDV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CijenaSPDVom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StvarateljRacuna)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Primatelj)
-        </th>
-    </tr>
     <tr>&nbsp;</tr>
     @foreach (var item in Model)
     {
         <tr><td><b>Faktura:</b></td></tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumIzdavanja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumDospijeca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cijena)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PDV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CijenaSPDVom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StvarateljRacuna)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Primatelj)
+            </th>
+        </tr>
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DatumIzdavanja)
@@ -63,9 +63,10 @@
             <th><b>Cijena</b></th>
             <th><b>Ukupna cijena s PDVom</b></th>
         </tr>
-        <tr>
-            @foreach (var stavka in item.Stavke)
-            {
+
+        foreach (var stavka in item.Stavke)
+        {
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => stavka.Opis)
                 </td>
@@ -76,10 +77,9 @@
                     @Html.DisplayFor(modelItem => stavka.Cijena)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => stavka.UkupnaCijenaSPDVom)
+                    @Html.DisplayFor(modelItem => stavka.UkupnaCijena)
                 </td>
-            }
-        </tr>
-        <tr> &nbsp; </tr>
+            </tr>
+        }
     }
 </table>

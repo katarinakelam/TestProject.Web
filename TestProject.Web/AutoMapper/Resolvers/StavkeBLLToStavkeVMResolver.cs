@@ -9,14 +9,14 @@ using StavkaVM = TestProject.Web.ViewModels.Stavka;
 
 namespace TestProject.Web.AutoMapper.Resolvers
 {
-    public class StavkeBLLToStavkeVMResolver : IValueResolver<Faktura, FakturaVM, List<StavkaVM>>
+    public class StavkeBLLToStavkeVMResolver : IValueResolver<Faktura, FakturaVM, IEnumerable<StavkaVM>>
     {
-        public List<StavkaVM> Resolve(Faktura source, FakturaVM destination, List<StavkaVM> destMember, ResolutionContext context)
+        public IEnumerable<StavkaVM> Resolve(Faktura source, FakturaVM destination, IEnumerable<StavkaVM> destMember, ResolutionContext context)
         {
             List<StavkaVM> stavke = new List<StavkaVM>();
-            StavkaVM stavka = new StavkaVM();
             foreach (var item in source.Stavke)
             {
+                StavkaVM stavka = new StavkaVM();
                 stavka.Cijena = item.Cijena;
                 stavka.Kolicina = item.Kolicina;
                 stavka.Opis = item.Opis;
@@ -24,7 +24,7 @@ namespace TestProject.Web.AutoMapper.Resolvers
 
                 stavke.Add(stavka);
             }
-            return stavke;
+            return stavke.AsEnumerable();
         }
     }
 }
