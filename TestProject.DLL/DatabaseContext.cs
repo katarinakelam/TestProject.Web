@@ -14,10 +14,14 @@ namespace TestProject.DLL
         public DbSet<Stavka> Stavke { get; set; }
         public DbSet<Faktura> Fakture { get; set; }
 
+        static DatabaseContext()
+        {
+            System.Data.Entity.Database.SetInitializer(new DropCreateDatabaseAlways<DatabaseContext>());
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            Database.SetInitializer<DatabaseContext>(null);
         }
     }
 }
